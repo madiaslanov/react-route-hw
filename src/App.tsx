@@ -1,11 +1,12 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { RootLayout } from './components/RootLayout/RootLayout';
 import { Home } from './pages/Home/Home';
 import { About } from './pages/About/About';
 import { SomethingList } from './pages/SomethingList/SomethingList';
 import { SomethingDetails } from './pages/SomethingDetails/SomethingDetails';
-import { Login } from './pages/Login/Login';
+import { RootLayout } from "./components/RootLayout/RootLayout";
+import {Login} from "./pages/Login/Login.tsx";
+
 
 const router = createBrowserRouter([
     {
