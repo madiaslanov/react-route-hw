@@ -1,4 +1,4 @@
-import { ApiResponse, Product } from '../types/product';
+import type { ApiResponse, Product } from '../types/product';
 
 const BASE_URL = 'https://dummyjson.com';
 

@@ -4,7 +4,7 @@ import { getItems } from '../../services/itemsService';
 import { Card } from '../../components/Card/Card';
 import { Spinner } from '../../components/Spinner/Spinner';
 import { ErrorBox } from '../../components/ErrorBox/ErrorBox';
-import { Product } from '../../types/product';
+import type {Product} from '../../types/product';
 import styles from './SomethingList.module.css';
 
 export const SomethingList: React.FC = () => {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getItemById } from '../../services/itemsService';
-import { Spinner } from '../../components/Spinner/Spinner';
 import { ErrorBox } from '../../components/ErrorBox/ErrorBox';
-import { Product } from '../../types/product';
+import type { Product } from '../../types/product';
 import styles from './SomethingDetails.module.css';
+import {Spinner} from "../../components/Spinner/Spinner.tsx";
 
 export const SomethingDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();

@@ -1,0 +1,44 @@
+.homeContainer {
+    text-align: center;
+    padding: 2rem;
+}
+
+.homeImage {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.content h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.content p {
+    font-size: 1.2rem;
+    color: #34495e;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.ctaButton {
+    display: inline-block;
+    background-color: #e74c3c;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.ctaButton:hover {
+    background-color: #c0392b;
+}
