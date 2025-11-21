@@ -1,25 +1,29 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {signInWithEmailAndPassword} from 'firebase/auth';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
 import {auth} from '../../firebase';
-import styles from './Login.module.css';
+import styles from './Signup.module.css';
 
-export function Login() {
+export function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (password !== confirmPassword) {
+            return setError('Пароли не совпадают');
+        }
         try {
             setError('');
             setLoading(true);
-            await signInWithEmailAndPassword(auth, email, password);
+            await createUserWithEmailAndPassword(auth, email, password);
             navigate('/profile');
         } catch (err) {
-            setError('Не удалось войти');
+            setError('Не удалось создать аккаунт');
             console.error(err);
         }
         setLoading(false);
@@ -27,9 +31,9 @@ export function Login() {
 
     return (
         <div className={styles.container}>
-            <h2>Вход</h2>
+            <h2>Регистрация</h2>
             {error && <p className={styles.error}>{error}</p>}
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleSignup}>
                 <input
                     type="email"
                     placeholder="Email"
@@ -44,12 +48,19 @@ export function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
+                <input
+                    type="password"
+                    placeholder="Подтвердите пароль"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                />
                 <button disabled={loading} type="submit">
-                    Войти
+                    Зарегистрироваться
                 </button>
             </form>
             <p>
-                Нет аккаунта? <Link to="/signup">Зарегистрироваться</Link>
+                Уже есть аккаунт? <Link to="/login">Войти</Link>
             </p>
         </div>
     );
