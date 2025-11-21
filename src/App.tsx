@@ -36,7 +36,7 @@ const router = createBrowserRouter([
 
 const App: React.FC = () => {
     return (
-        <AuthProvider>
+        <AuthProvider >
             <RouterProvider router={router}/>
         </AuthProvider>
     );
