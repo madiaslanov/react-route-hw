@@ -1,38 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getItems } from '../../services/itemsService';
 import { Card } from '../../components/Card/Card';
 import { Spinner } from '../../components/Spinner/Spinner';
 import { ErrorBox } from '../../components/ErrorBox/ErrorBox';
-import type {Product} from '../../types/product';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { fetchItems } from '../../features/items/itemsSlice';
 import styles from './SomethingList.module.css';
 
 export const SomethingList: React.FC = () => {
-    const [items, setItems] = useState<Product[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const dispatch = useAppDispatch();
+    const { list, loadingList, errorList } = useAppSelector((state) => state.items);
     const [searchParams, setSearchParams] = useSearchParams();
     const query = searchParams.get('q') || '';
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                setError(null);
-                const data = await getItems(query);
-                setItems(data.products);
-            } catch (err) {
-                if (err instanceof Error) {
-                    setError(err.message);
-                } else {
-                    setError('An unknown error occurred');
-                }
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, [query]);
+        dispatch(fetchItems(query));
+    }, [dispatch, query]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newQuery = e.target.value;
@@ -43,8 +26,8 @@ export const SomethingList: React.FC = () => {
         }
     };
 
-    if (loading) return <Spinner />;
-    if (error) return <ErrorBox message={error} />;
+    if (loadingList) return <Spinner />;
+    if (errorList) return <ErrorBox message={errorList} />;
 
     return (
         <div>
@@ -57,9 +40,9 @@ export const SomethingList: React.FC = () => {
                     className={styles.searchInput}
                 />
             </div>
-            {items.length > 0 ? (
+            {list.length > 0 ? (
                 <div className={styles.list}>
-                    {items.map((item) => (
+                    {list.map((item) => (
                         <Card key={item.id} item={item} />
                     ))}
                 </div>
